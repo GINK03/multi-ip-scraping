@@ -16,7 +16,8 @@ for iobj in obj['Reservations']:
     #publicIpAddress = insta['PublicIpAddress']
     #print( insta )
     line = '{} {}'.format(lifetime, public)
+    print( line )
     
-    if lifetime == 'spot':
+    if lifetime == 'spot' and public is not None:
       f.write( line + '\n')
 
