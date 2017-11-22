@@ -39,14 +39,25 @@ for i in range(5):
 
 ## VMのIPリストを表示する
 ```console
-$ gcloud compute instances list
-NAME        ZONE               MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
-instance-1  asia-northeast1-b  g1-small                    10.146.0.2                   TERMINATED
-my-vm       us-central1-b      n1-standard-1  true         10.128.0.3                   TERMINATED
-my-vm0      us-central1-b      n1-standard-1  true         10.128.0.4   35.184.178.159  RUNNING
-my-vm1      us-central1-b      n1-standard-1  true         10.128.0.5   104.154.245.47  RUNNING
-my-vm2      us-central1-b      n1-standard-1  true         10.128.0.6   104.154.79.77   RUNNING
-my-vm3      us-central1-b      n1-standard-1  true         10.128.0.7   35.188.93.220   RUNNING
-my-vm4      us-central1-b      n1-standard-1  true         10.128.0.8   35.202.227.110  RUNNING
-instance-4  us-central1-c      n1-standard-8               10.128.0.2   35.192.67.51    RUNNING
+$ gcloud compute instances list --format json
+```
+```python
+import json
+import os
+import re
+
+data = os.popen('gcloud compute instances list --format json').read()
+print(data)
+
+for data in json.loads( data ):
+  if data['scheduling']['preemptible'] != True:
+    continue
+  if data['status'] != 'RUNNING':
+    continue
+  try:
+    name = data['name']
+    ip = data['networkInterfaces'][0]['networkIP']
+  except KeyError as e:
+    continue
+  print(name, ip )
 ```
