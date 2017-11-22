@@ -22,3 +22,17 @@ $ sudo systemctl restart squid
 $ sudo systemctl status squid
 ```
 可能ならば、クライアントマシンで動作を確認する
+
+## GCPのマシンのディスクイメージを作成する
+web UIからログインして対応する
+
+Instances... -> Create Image
+
+## 試しにvmを5台立ち上げてみる
+pythonスクリプトでラップアップ
+```python
+import os                                                       
+import sys                                                              
+for i in range(5):
+  os.system('gcloud compute instances create my-vm{i} --zone us-central1-b --preemptible --image squid-image'.format(i=i)) 
+```
