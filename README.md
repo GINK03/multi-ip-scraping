@@ -151,6 +151,10 @@ $ sudo systemctl status squid
    Active: active (running) since Thu 2017-11-23 13:48:29 UTC; 28s ago
      Docs: man:systemd-sysv-generator(8)
 ```
+<p align="center">
+  <img width="650px" src="https://user-images.githubusercontent.com/4949982/33176086-2632e318-d0a1-11e7-98da-010a1c34a63b.png">
+</p>
+<div align="center"> AWSの画面からAMIを作成し、このAMIのIDを控えます </div>
 
 ## AWSのspotインスタンスをAMIを指定してAWS CLIから購入する
 **aws cliのインストール**
