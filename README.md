@@ -180,7 +180,7 @@ Default output format [None]: json
 (Default regionの設定をしくじると、わけのわからないエラーが出ます。一時間溶かしました。。）　
 
 ## 3. spotインスタンスをAMIを指定してAWS CLIから購入する
-AWSの悪い点として、ドキュメントがとてもわかりにくいので、スクリプトをまとめてラップアップしてテンプレートとしています  
+AWSの悪い点として、ドキュメントがとてもわかりにくいので、スクリプトをまとめてラップアップして**aws_spot_orders**というディレクトリに、テンプレートとしています  
 
 **AWSCLIでは一般的なshellでの記述と、specification.jsonとの両方のファイルが必要です**  
 このAMIやkeyNameやSecretGroupIDはお使いのAWS環境に適宜適合させてください
