@@ -43,6 +43,9 @@ $ sudo systemctl status squid
    Active: active (running) since Thu 2017-11-23 10:12:00 UTC; 45s ago
 ```
 **クライアントマシンにプロキシを通して、IP確認サイトでステータスを見てみます**
+<p align="center">
+  <img width="750px" src="https://user-images.githubusercontent.com/4949982/33168050-e7aac908-d082-11e7-94e6-503d5a916273.png">
+</p>
 
 ## プリエンプティブインスタンスを購入する
 
