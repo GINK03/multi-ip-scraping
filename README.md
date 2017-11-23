@@ -162,7 +162,8 @@ $ cat spec.json
   "SecurityGroupIds": [ "sg-4041b039" ]
 }
 ```
-****
+**shellを実行して、インスタンスを起動します**
 ```console
-$ 
+$ aws ec2 request-spot-instances --spot-price "0.03" --instance-count 1 --type "one-time" --launch-specification file://spec.json
 ```
+より、詳細な設定とオプションは[こちら](http://docs.aws.amazon.com/cli/latest/reference/ec2/request-spot-instances.html)を参照してください。
