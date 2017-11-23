@@ -33,6 +33,14 @@ $ cd squid-config-dotfile
 $ sudo cp squid.conf.http.anon /etc/squid/squid.conf
 $ sudo systemctl restart squid
 ```
+**正常に設定が反映されて、問題なく使用できるかどうか確認します**
+```console
+$ sudo systemctl status squid
+● squid.service - LSB: Squid HTTP Proxy version 3.x
+   Loaded: loaded (/etc/init.d/squid; generated; vendor preset: enabled)
+   Active: active (running) since Thu 2017-11-23 10:12:00 UTC; 45s ago
+```
+**クライアントマシンにプロキシを通して、IP確認サイトでステータスを見てみます**
 
 ## プリエンプティブインスタンスを購入する
 
