@@ -128,7 +128,36 @@ $ cd example
 $ python3 jin115.py
 ```
 
-## AWSのstopインスタンスをAMIを指定してAWS CLIから購入する
+# AWSでの例
+1. AWSインスタンスでsquidがインストールされたAMIを作成する
+2. AWS CLIをインストールしてセットアップ
+3. spotインスタンスをAWS CLI経由で購入する
+4. IP一覧を得る
+
+## 1. AWSインスタンスでsquidがインストールされたAMIを作成する
+通常にインスタンスを作成するように、軽めのディスク容量でインスタンスを作成します  
+ログインした後、GCPのインスタンスと同じようなプロセスで、squidのインストールとセットアップを行います  
+```console
+$ ssh -i td2.pem ubuntu@13.230.46.135
+[aws instanceログイン後]
+$ git clone https://github.com/GINK03/squid-config-dotfile
+$ cd squid-config-dotfile
+$ sudo apt install squid
+$ sudo cp squid.conf.http.anon /etc/squid/squid.conf
+$ sudo systemctl restart squid
+$ sudo systemctl status squid
+● squid.service - LSB: Squid HTTP Proxy version 3.x
+   Loaded: loaded (/etc/init.d/squid; bad; vendor preset: enabled)
+   Active: active (running) since Thu 2017-11-23 13:48:29 UTC; 28s ago
+     Docs: man:systemd-sysv-generator(8)
+```
+<p align="center">
+  <img width="650px" src="https://user-images.githubusercontent.com/4949982/33176086-2632e318-d0a1-11e7-98da-010a1c34a63b.png">
+</p>
+<div align="center"> AWSの画面からAMIを作成し、このAMIのIDを控えます </div>
+
+## 2. AWS CLIの設定
+コマンドライン(CLI)からAWSの機能を扱えるように設定しないと、spot instanceなどをプログラムなどで制御して購入することができません  
 **aws cliのインストール**
 ```console
 $ sudo pip3 install awscli
@@ -145,6 +174,56 @@ aws_secret_access_key = oPOB/24SPrpkq00EIXSAn8X4t**********
 $ aws configure
 ...
 ...
-Default region name [None]: us-west-2
+Default region name [None]: ap-northeast-1
 Default output format [None]: json
+```
+(Default regionの設定をしくじると、わけのわからないエラーが出ます。一時間溶かしました。。）　
+
+## 3. spotインスタンスをAMIを指定してAWS CLIから購入する
+AWSの悪い点として、ドキュメントがとてもわかりにくいので、スクリプトをまとめてラップアップして**aws_spot_orders**というディレクトリに、テンプレートとしています  
+
+**AWSCLIでは一般的なshellでの記述と、specification.jsonとの両方のファイルが必要です**  
+このAMIやkeyNameやSecretGroupIDはお使いのAWS環境に適宜適合させてください
+```cosnole
+$ cd aws_spot_orders
+$ cat spec.json
+{
+  "ImageId": "ami-9e60d2f8",
+  "KeyName": "td2",
+  "InstanceType": "m3.medium",
+  "SecurityGroupIds": [ "sg-4041b039" ]
+}
+```
+**shellを実行して、インスタンスを起動します**
+```console
+$ aws ec2 request-spot-instances --spot-price "0.03" --instance-count 1 --type "one-time" --launch-specification file://spec.json
+```
+より、詳細な設定とオプションは[こちら](http://docs.aws.amazon.com/cli/latest/reference/ec2/request-spot-instances.html)を参照してください。
+
+## 4. SpotインスタンスのIP一覧をAWS CLI経由で得る
+
+aws ec2 describe-instancesでjsonのデータを取得できます  
+情報が色々な角度で入っていて、とても混雑度が高いので、pythonで標準入力で受け取って、json.loadsしてあげるとわかりやすくて便利でした  
+
+```python
+import os
+import json
+
+data = os.popen('aws ec2 describe-instances').read()
+
+f = open('aws_ip.txt', 'w')
+obj = json.loads(data)
+
+for iobj in obj['Reservations']:
+  for insta in iobj['Instances']:
+    insta = insta
+    lifetime = insta.get('InstanceLifecycle')
+    public = insta.get('PublicIpAddress')
+    #publicIpAddress = insta['PublicIpAddress']
+    #print( insta )
+    line = '{} {}'.format(lifetime, public)
+    print( line )
+
+    if lifetime == 'spot' and public is not None:
+      f.write( line + '\n')
 ```
