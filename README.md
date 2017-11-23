@@ -17,7 +17,7 @@
 https://cloud.google.com/compute/docs/vpc/using-firewalls?hl=ja
 ```
 <p align="center">
-  <img width="450px" src="https://user-images.githubusercontent.com/4949982/33167443-e58369d4-d080-11e7-9098-93a26b179278.png">
+  <img width="750px" src="https://user-images.githubusercontent.com/4949982/33167443-e58369d4-d080-11e7-9098-93a26b179278.png">
 </p>
 
 tcp:8080などsquidが使用するポートに穴を開ける
