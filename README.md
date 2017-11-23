@@ -133,3 +133,13 @@ $ python3 jin115.py
 ```console
 $ sudo pip3 install awscli
 ```
+**credentialsのセットアップ**
+```console
+$ cd $HOME
+$ mkdir .aws
+$ cd .aws
+$ cat > credentials
+[default]
+aws_access_key_id = AKIAIXCQGQV********
+aws_secret_access_key = oPOB/24SPrpkq00EIXSAn8X4t********** 
+```
