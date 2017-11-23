@@ -46,7 +46,7 @@ def map1(arr):
   print( 'now url', url ) 
   try:
     r = requests.get(url, proxies=proxies[index%len(proxies)])
-  except requests.exceptions.ProxyError:
+  except Exception:
     return set()
   html = r.text
   try:
