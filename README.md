@@ -51,27 +51,25 @@ $ sudo systemctl status squid
 </p>
 <div align="center"> 無事、IPが変わることが確認できました </div>
 
-## プリエンプティブインスタンスを購入する
-
-```console
-$ gcloud compute instances create my-vm --zone us-central1-b --preemptible
-```
-
-## Squidをインストールしてちゃんとプロキシサーバとして機能することを確認する
-```console
-$ sudo apt install git squid tmux vim
-$ git clone https://github.com/GINK03/squid-config-dotfile
-$ cd squid-config-dotfile
-$ sudo cp {$TARGET_FILE} /etc/squid.conf
-$ sudo systemctl restart squid
-$ sudo systemctl status squid
-```
-可能ならば、クライアントマシンで動作を確認する
 
 ## GCPのマシンのディスクイメージを作成する
 web UIからログインして対応する
 
 Instances... -> Create Image
+
+
+## プリエンプティブインスタンスを購入する
+
+**gcloudというコマンドがインストールされている必要がります**
+```cosnole
+$ curl https://sdk.cloud.google.com | bash
+```
+
+**試しにmy-vmというインスタンスを立ててみます**
+```console
+$ gcloud compute instances create my-vm --zone us-central1-b --preemptible
+```
+
 
 ## 試しにvmを5台立ち上げてみる
 pythonスクリプトでラップアップ
