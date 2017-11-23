@@ -129,5 +129,7 @@ $ python3 jin115.py
 ```
 
 ## AWSのstopインスタンスをAMIを指定してAWS CLIから購入する
-
-、
+**aws cliのインストール**
+```console
+$ sudo pip3 install awscli
+```
