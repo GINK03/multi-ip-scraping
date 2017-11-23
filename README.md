@@ -46,6 +46,10 @@ $ sudo systemctl status squid
 <p align="center">
   <img width="750px" src="https://user-images.githubusercontent.com/4949982/33168050-e7aac908-d082-11e7-94e6-503d5a916273.png">
 </p>
+<p align="center">
+  <img width="750px" src="https://user-images.githubusercontent.com/4949982/33168238-939650b6-d083-11e7-9c71-9b93640bc031.png">
+</p>
+<div align="center"> 無事、IPが変わることが確認できました </div>
 
 ## プリエンプティブインスタンスを購入する
 
