@@ -202,3 +202,28 @@ $ aws ec2 request-spot-instances --spot-price "0.03" --instance-count 1 --type "
 
 ## 4. SpotインスタンスのIP一覧をAWS CLI経由で得る
 
+aws ec2 describe-instancesでjsonのデータを取得できます  
+情報が色々な角度で入っていて、とても混雑度が高いので、pythonで標準入力で受け取って、json.loadsしてあげるとわかりやすくて便利でした  
+
+```python
+import os
+import json
+
+data = os.popen('aws ec2 describe-instances').read()
+
+f = open('aws_ip.txt', 'w')
+obj = json.loads(data)
+
+for iobj in obj['Reservations']:
+  for insta in iobj['Instances']:
+    insta = insta
+    lifetime = insta.get('InstanceLifecycle')
+    public = insta.get('PublicIpAddress')
+    #publicIpAddress = insta['PublicIpAddress']
+    #print( insta )
+    line = '{} {}'.format(lifetime, public)
+    print( line )
+
+    if lifetime == 'spot' and public is not None:
+      f.write( line + '\n')
+```
