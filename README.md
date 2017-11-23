@@ -53,10 +53,12 @@ $ sudo systemctl status squid
 
 
 ## GCPのマシンのディスクイメージを作成する
-web UIからログインして対応する
+GCPのWEB UIより作成が可能です
 
-Instances... -> Create Image
-
+<p align="center">
+  <img width="750px" src="https://user-images.githubusercontent.com/4949982/33168521-915df08c-d084-11e7-9531-68a21fc754cc.png">
+</p>
+<div align="center"> AWSではAMIの機能に該当するかと思います　　</div>
 
 ## プリエンプティブインスタンスを購入する
 
