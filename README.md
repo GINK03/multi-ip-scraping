@@ -68,13 +68,13 @@ $ curl https://sdk.cloud.google.com | bash
 ```
 
 **試しにmy-vmというインスタンスを立ててみます**
+machine typeはn1-standard-1という最も安価なインスタンスを指定して、インスタンスを作るcompute instances createコマンドの最後に、 **--preemtible**オプションをつけることで、プリエンティブインスタンスとして起動します
 ```console
-$ gcloud compute instances create my-vm --zone us-central1-b --preemptible
+$ gcloud compute instances create my-vm --zone us-central1-b --machine-type n1-standard-1 --preemptible
 ```
 
-
 ## 試しにvmを5台立ち上げてみる
-pythonスクリプトでラップアップ
+pythonスクリプトでラップアップしておくと楽です
 ```python
 import os                                                       
 import sys                                                              
