@@ -145,6 +145,11 @@ aws_secret_access_key = oPOB/24SPrpkq00EIXSAn8X4t**********
 $ aws configure
 ...
 ...
-Default region name [None]: us-west-2
+Default region name [None]: ap-northeast-1
 Default output format [None]: json
 ```
+(Default regionの設定をしくじると、わけのわからないエラーが出ます。。。一時間溶かしました。。）　
+
+**AWSCLIでは一般的な書き方と、
+&
+**
