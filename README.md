@@ -24,12 +24,14 @@ tcp:8080などsquidが使用するポートに穴を開ける
 
 ## Squidをインストールして、プロキシサーバとして機能させます
 元のユーザ情報やIPがわかってしまうと、意味がないので、x-forwardはOFFでパスワードはかけていないです。（適宜かけてください）
-**想定はDebian LinuxかUbuntu Linuxです**
+**想定はGCPで起動しているDebian LinuxかUbuntu Linuxです**
 **テンプレートファイルをダウンロードします**
 ```console
 $ git clone https://github.com/GINK03/squid-config-dotfile
 $ sudo apt install squid
-
+$ cd squid-config-dotfile
+$ sudo cp squid.conf.http.anon /etc/squid/squid.conf
+$ sudo systemctl restart squid
 ```
 
 ## プリエンプティブインスタンスを購入する
