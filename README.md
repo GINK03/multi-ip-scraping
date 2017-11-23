@@ -128,7 +128,19 @@ $ cd example
 $ python3 jin115.py
 ```
 
-## AWSのstopインスタンスをAMIを指定してAWS CLIから購入する
+# AWSでの例
+1. AWSインスタンスでsquidがインストールされたAMIを作成する
+2. AWS CLIをインストールしてセットアップ
+3. spotインスタンスをAWS CLI経由で購入する
+4. IP一覧を得る
+
+## 1. AWSインスタンスでsquidがインストールされたAMIを作成する
+通常にインスタンスを作成するように、軽めのディスク容量でインスタンスを作成します  
+ログインした後、GCPのインスタンスと同じようなプロセスで、squidのインストールとセットアップを行います  
+```console
+```
+
+## AWSのspotインスタンスをAMIを指定してAWS CLIから購入する
 **aws cliのインストール**
 ```console
 $ sudo pip3 install awscli
