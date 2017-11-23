@@ -9,6 +9,12 @@ import json
 import os
 
 import random
+
+import sys
+
+import gzip
+
+import pickle
 name_ip = json.loads( open('../gcp_name_ip.json').read() )
 proxies = []
 for name, ip in name_ip.items():
@@ -38,9 +44,15 @@ def map1(arr):
   if os.path.exists(save_name) is True:
     return set()
   print( 'now url', url ) 
-  r = requests.get(url, proxies=proxies[index%len(proxies)])
+  try:
+    r = requests.get(url, proxies=proxies[index%len(proxies)])
+  except requests.exceptions.ProxyError:
+    return set()
   html = r.text
-  open( save_name, 'w' ).write( html )  
+  try:
+    open( save_name, 'w' ).write( html )  
+  except OSError:
+    return set()
   soup = bs4.BeautifulSoup(r.text)
   urls = set()
   for a in soup.find_all('a', href=True):
@@ -50,12 +62,14 @@ def map1(arr):
   return url_fix(urls)
 
 urls = {'http://jin115.com/'}
+if '--resume' in sys.argv:
+  urls = pickle.loads(gzip.decompress(open('urls.pkl.gz', 'rb').read()))
 
 while True:
   arrs = [(index,url) for index,url in enumerate(urls)]
   
   nexts = set()
-  with concurrent.futures.ProcessPoolExecutor(max_workers=8) as exe:
+  with concurrent.futures.ProcessPoolExecutor(max_workers=128) as exe:
     for urls in exe.map(map1, arrs):
       for url in urls:
         nexts.add(url)
