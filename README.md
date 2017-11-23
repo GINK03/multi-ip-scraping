@@ -150,6 +150,19 @@ Default output format [None]: json
 ```
 (Default regionの設定をしくじると、わけのわからないエラーが出ます。。。一時間溶かしました。。）　
 
-**AWSCLIでは一般的な書き方と、
-&
-**
+**AWSCLIでは一般的なshellでの記述と、specification.jsonとの両方のファイルが必要です**  
+このAMIやkeyNameやSecretGroupIDはお使いのAWS環境に適宜適合させてください
+```cosnole
+$ cd aws_spot_orders
+$ cat spec.json
+{
+  "ImageId": "ami-9e60d2f8",
+  "KeyName": "td2",
+  "InstanceType": "m3.medium",
+  "SecurityGroupIds": [ "sg-4041b039" ]
+}
+```
+****
+```console
+$ 
+```
