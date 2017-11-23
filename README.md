@@ -82,10 +82,12 @@ for i in range(5):
   os.system('gcloud compute instances create my-vm{i} --zone us-central1-b --preemptible --image squid-image'.format(i=i)) 
 ```
 
-## VMのIPリストを表示する
+## Preemptible VMのIPリストを表示する
+JSONフォーマットで受け取るにはこのようにします
 ```console
 $ gcloud compute instances list --format json
 ```
+Pythonで読み取ることで、スクレイパーに渡すIPとマシンネームを紐付けたjsonファイルを生成できます
 ```python
 import json
 import os
@@ -94,6 +96,7 @@ import re
 data = os.popen('gcloud compute instances list --format json').read()
 print(data)
 
+name_ip = {}
 for data in json.loads( data ):
   if data['scheduling']['preemptible'] != True:
     continue
@@ -101,8 +104,12 @@ for data in json.loads( data ):
     continue
   try:
     name = data['name']
-    ip = data['networkInterfaces'][0]['networkIP']
+    print(  data['networkInterfaces'][0] )
+    ip = data['networkInterfaces'][0]['accessConfigs'][0]['natIP']
   except KeyError as e:
     continue
   print(name, ip )
+  name_ip[name] = ip
+
+open('name_ip.json', 'w').write( json.dumps(name_ip,indent=2) )
 ```
