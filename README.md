@@ -142,4 +142,9 @@ $ cat > credentials
 [default]
 aws_access_key_id = AKIAIXCQGQV********
 aws_secret_access_key = oPOB/24SPrpkq00EIXSAn8X4t********** 
+$ aws configure
+...
+...
+Default region name [None]: us-west-2
+Default output format [None]: json
 ```
