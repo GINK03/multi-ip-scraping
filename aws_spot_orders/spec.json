@@ -1,0 +1,6 @@
+{
+  "ImageId": "ami-9e60d2f8",
+  "KeyName": "td2",
+  "InstanceType": "m3.medium", 
+  "SecurityGroupIds": [ "sg-4041b039" ]
+}
