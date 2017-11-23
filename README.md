@@ -67,7 +67,8 @@ GCPのWEB UIより作成が可能です
 $ curl https://sdk.cloud.google.com | bash
 ```
 
-**試しにmy-vmというインスタンスを立ててみます**
+**試しにmy-vmというインスタンスを立ててみます**  
+
 machine typeはn1-standard-1という最も安価なインスタンスを指定して、インスタンスを作るcompute instances createコマンドの最後に、 **--preemtible**オプションをつけることで、プリエンティブインスタンスとして起動します
 ```console
 $ gcloud compute instances create my-vm --zone us-central1-b --machine-type n1-standard-1 --preemptible
@@ -114,8 +115,36 @@ for data in json.loads( data ):
 open('name_ip.json', 'w').write( json.dumps(name_ip,indent=2) )
 ```
 
-# 実際に使ってみる
+# (コーディングの例)実際に使ってみる
 python3のmultiprocessの機能と、porxyの設定を組み合わせると、ほとんどのサイトの安全システム（一秒間に一回程度にアクセスを抑えるセーフガード）を出し抜くことはできますが、それは使う側の視点としてはコンプライアンスの視点はどうなの？とか、これを行うことによりスクレイピングをするサイトに迷惑をかけてしまい、結果として業務を妨害するようなことになれば、それは業務妨害とか何だと思います  
 
 会社で使うには、スクレイピングするサイトと、法務部とかのチェックや、社内サービスに限定するとか、色々、配慮しなくてはいけない要素は多そうです。  
 
+**exmaple**というディレクトりに、よく使うミニマムなスクレイピングパターンを置いてあります。  
+（jin115.comという2chまとめサイトをスクレイピングするように設定されています）  
+(requests, bs4というモジュールに依存しています)  
+```console
+$ cd example
+$ python3 jin115.py
+```
+
+## AWSのstopインスタンスをAMIを指定してAWS CLIから購入する
+**aws cliのインストール**
+```console
+$ sudo pip3 install awscli
+```
+**credentialsのセットアップ**
+```console
+$ cd $HOME
+$ mkdir .aws
+$ cd .aws
+$ cat > credentials
+[default]
+aws_access_key_id = AKIAIXCQGQV********
+aws_secret_access_key = oPOB/24SPrpkq00EIXSAn8X4t********** 
+$ aws configure
+...
+...
+Default region name [None]: us-west-2
+Default output format [None]: json
+```
