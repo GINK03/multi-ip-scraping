@@ -156,7 +156,8 @@ $ sudo systemctl status squid
 </p>
 <div align="center"> AWSの画面からAMIを作成し、このAMIのIDを控えます </div>
 
-## AWSのspotインスタンスをAMIを指定してAWS CLIから購入する
+## 2. AWS CLIの設定
+コマンドライン(CLI)からAWSの機能を扱えるように設定しないと、spot instanceなどをプログラムなどで制御して購入することができません  
 **aws cliのインストール**
 ```console
 $ sudo pip3 install awscli
@@ -176,7 +177,10 @@ $ aws configure
 Default region name [None]: ap-northeast-1
 Default output format [None]: json
 ```
-(Default regionの設定をしくじると、わけのわからないエラーが出ます。。。一時間溶かしました。。）　
+(Default regionの設定をしくじると、わけのわからないエラーが出ます。一時間溶かしました。。）　
+
+## 3. spotインスタンスをAMIを指定してAWS CLIから購入する
+AWSの悪い点として、ドキュメントがとてもわかりにくいので、スクリプトをまとめてラップアップしてテンプレートとしています  
 
 **AWSCLIでは一般的なshellでの記述と、specification.jsonとの両方のファイルが必要です**  
 このAMIやkeyNameやSecretGroupIDはお使いのAWS環境に適宜適合させてください
@@ -195,3 +199,6 @@ $ cat spec.json
 $ aws ec2 request-spot-instances --spot-price "0.03" --instance-count 1 --type "one-time" --launch-specification file://spec.json
 ```
 より、詳細な設定とオプションは[こちら](http://docs.aws.amazon.com/cli/latest/reference/ec2/request-spot-instances.html)を参照してください。
+
+## 4. SpotインスタンスのIP一覧をAWS CLI経由で得る
+
