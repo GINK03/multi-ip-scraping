@@ -22,7 +22,15 @@ https://cloud.google.com/compute/docs/vpc/using-firewalls?hl=ja
 
 tcp:8080などsquidが使用するポートに穴を開ける
 
-## 
+## Squidをインストールして、プロキシサーバとして機能させます
+元のユーザ情報やIPがわかってしまうと、意味がないので、x-forwardはOFFでパスワードはかけていないです。（適宜かけてください）
+**想定はDebian LinuxかUbuntu Linuxです**
+**テンプレートファイルをダウンロードします**
+```console
+$ git clone https://github.com/GINK03/squid-config-dotfile
+$ sudo apt install squid
+
+```
 
 ## プリエンプティブインスタンスを購入する
 
