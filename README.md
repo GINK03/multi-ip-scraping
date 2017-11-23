@@ -67,7 +67,8 @@ GCPのWEB UIより作成が可能です
 $ curl https://sdk.cloud.google.com | bash
 ```
 
-**試しにmy-vmというインスタンスを立ててみます**
+**試しにmy-vmというインスタンスを立ててみます**  
+
 machine typeはn1-standard-1という最も安価なインスタンスを指定して、インスタンスを作るcompute instances createコマンドの最後に、 **--preemtible**オプションをつけることで、プリエンティブインスタンスとして起動します
 ```console
 $ gcloud compute instances create my-vm --zone us-central1-b --machine-type n1-standard-1 --preemptible
@@ -119,3 +120,9 @@ python3のmultiprocessの機能と、porxyの設定を組み合わせると、�
 
 会社で使うには、スクレイピングするサイトと、法務部とかのチェックや、社内サービスに限定するとか、色々、配慮しなくてはいけない要素は多そうです。  
 
+**exmaple**というディレクトりに、よく使うミニマムなスクレイピングパターンを置いてあります。（jin115.comという2chまとめサイトをスクレイピングするように設定されています）
+(requests, bs4というモジュールに依存しています)
+```console
+$ cd example
+$ python3 jin115.py
+```
