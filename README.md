@@ -138,6 +138,18 @@ $ python3 jin115.py
 通常にインスタンスを作成するように、軽めのディスク容量でインスタンスを作成します  
 ログインした後、GCPのインスタンスと同じようなプロセスで、squidのインストールとセットアップを行います  
 ```console
+$ ssh -i td2.pem ubuntu@13.230.46.135
+[aws instanceログイン後]
+$ git clone https://github.com/GINK03/squid-config-dotfile
+$ cd squid-config-dotfile
+$ sudo apt install squid
+$ sudo cp squid.conf.http.anon /etc/squid/squid.conf
+$ sudo systemctl restart squid
+$ sudo systemctl status squid
+● squid.service - LSB: Squid HTTP Proxy version 3.x
+   Loaded: loaded (/etc/init.d/squid; bad; vendor preset: enabled)
+   Active: active (running) since Thu 2017-11-23 13:48:29 UTC; 28s ago
+     Docs: man:systemd-sysv-generator(8)
 ```
 
 ## AWSのspotインスタンスをAMIを指定してAWS CLIから購入する
