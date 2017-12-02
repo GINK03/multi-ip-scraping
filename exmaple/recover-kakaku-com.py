@@ -15,32 +15,43 @@ files = glob.glob('htmls/*')
 size = len(files)
 
 def _map(arr):
-  index, name = arr
-  link_name = 'links/' + name.split('/').pop().replace('/', '_') 
-  if os.path.exists(link_name) is True:
-    return
-
-  print('now iter', index, '/', size)
-  soup = bs4.BeautifulSoup( open(name).read() )
- 
-  f = open(link_name, 'w')
-  for a in soup.find_all('a', href=True):
-    url = a['href']
-    try:
-      if url[0] == '/':
-        url = 'http://jin115.com' + url
-    except Exception:
-      continue
-    
-    if 'kakaku.com' not in url:
+  index, names = arr
+  _size = len(names)
+  #print(index,names)
+  for _index, name in enumerate(names):
+    link_name = 'links/' + name.split('/').pop().replace('/', '_') 
+    if os.path.exists(link_name) is True:
       continue
 
-    f.write( url + '\n' ) 
+    print('now iter', _index, '/', _size, 'at', index)
+    soup = bs4.BeautifulSoup( open(name).read() )
+   
+    f = open(link_name, 'w')
+    for a in soup.find_all('a', href=True):
+      url = a['href']
+      try:
+        if url[0] == '/':
+          url = 'http://jin115.com' + url
+      except Exception:
+        continue
+      
+      if 'kakaku.com' not in url:
+        continue
 
+      f.write( url + '\n' ) 
+import concurrent.futures
 if '--map1' in sys.argv:
+  arrs = {}
   for index, name in enumerate(files):
-    p = Process(target=_map, args=((index, name), )) 
-    p.start()
+    key = index%32
+    if arrs.get(key) is None:
+      arrs[key] = []
+    arrs[key].append( name )
+  arrs = [ (index, names) for index,names in arrs.items() ]
+  #_map(arrs[0])
+  with concurrent.futures.ProcessPoolExecutor(max_workers=32) as exe:
+    exe.map(_map, arrs)
+
 
 if '--fold1' in sys.argv:
   urls = set()
