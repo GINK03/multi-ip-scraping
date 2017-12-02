@@ -71,7 +71,7 @@ while True:
   arrs = [(index,url) for index,url in enumerate(urls)]
   
   nexts = set()
-  with concurrent.futures.ProcessPoolExecutor(max_workers=len(proxies)) as exe:
+  with concurrent.futures.ProcessPoolExecutor(max_workers=5*len(proxies)) as exe:
     for urls in exe.map(map1, arrs):
       for url in urls:
         nexts.add(url)
