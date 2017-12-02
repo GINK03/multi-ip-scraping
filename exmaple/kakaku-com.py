@@ -47,6 +47,7 @@ def map1(arr):
   print( 'now url', url ) 
   try:
     r = requests.get(url, proxies=proxies[index%len(proxies)])
+    r.encoding = r.apparent_encoding
   except Exception as ex:
     print(ex)
     return set()
@@ -55,13 +56,16 @@ def map1(arr):
     open( save_name, 'w' ).write( html )  
   except OSError:
     return set()
-  soup = bs4.BeautifulSoup(r.text)
+  soup = bs4.BeautifulSoup(r.text, "html5lib")
   urls = set()
   for a in soup.find_all('a', href=True):
     _url = a['href']
     urls.add(_url)
   #print('a', urls)
-  return url_fix(url, urls)
+  save_link_name = 'links/' + url.replace('/', '_')
+  url_ret = url_fix(url, urls)
+  open(save_link_name, 'w').write( json.dumps(list(url_ret), indent=2, ensure_ascii=False) )
+  return url_ret
 
 urls = {'http://bbs.kakaku.com/bbs/K0000565942/SortID=21194172/'}
 if '--resume' in sys.argv:
@@ -71,7 +75,7 @@ while True:
   arrs = [(index,url) for index,url in enumerate(urls)]
   
   nexts = set()
-  with concurrent.futures.ProcessPoolExecutor(max_workers=5*len(proxies)) as exe:
+  with concurrent.futures.ProcessPoolExecutor(max_workers=1*len(proxies)) as exe:
     for urls in exe.map(map1, arrs):
       for url in urls:
         nexts.add(url)
