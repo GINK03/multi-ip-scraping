@@ -8,8 +8,11 @@
 
 ## 注意
 <p align="center">
-  <img width="300px" src="https://user-images.githubusercontent.com/4949982/34144820-9e04de5c-e4d6-11e7-917c-c128d6806068.png">
+  <img width="120px" src="https://user-images.githubusercontent.com/4949982/34144820-9e04de5c-e4d6-11e7-917c-c128d6806068.png">
 </p>
+1req/secの原則は、スクレイピングする主体について適応されるようです。  
+つまり、10個stopインスタンスを契約すれば、10並列可能なので、10倍の効率でアクセスできるかと思いきや、これは接続元のIPのルールではなく、スクレイピンするユーザ個人や企業であれば、企業体に対して適応されるルールです  
+
 
 
 ## GCP プリエンプティブインスタンス
