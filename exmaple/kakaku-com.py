@@ -67,7 +67,7 @@ def map1(arr):
   save_link_name = 'links/' + url.replace('/', '_')
   url_ret = url_fix(url, urls)
   open(save_link_name, 'w').write( json.dumps(list(url_ret), indent=2, ensure_ascii=False) )
-  time.sleep(1.0)
+  time.sleep(1.0*len(name_ip)) # 秒間１アクセスを担保する
   return url_ret
 
 urls = {'http://bbs.kakaku.com/bbs/K0000565942/SortID=21194172/'}
