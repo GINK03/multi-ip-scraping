@@ -15,6 +15,8 @@ import sys
 import gzip
 
 import pickle
+
+import time
 proxies = []
 for name_ip in open('../aws_ip.txt'):
   name, ip = name_ip.strip().split()
@@ -65,6 +67,7 @@ def map1(arr):
   save_link_name = 'links/' + url.replace('/', '_')
   url_ret = url_fix(url, urls)
   open(save_link_name, 'w').write( json.dumps(list(url_ret), indent=2, ensure_ascii=False) )
+  time.sleep(1.0)
   return url_ret
 
 urls = {'http://bbs.kakaku.com/bbs/K0000565942/SortID=21194172/'}
