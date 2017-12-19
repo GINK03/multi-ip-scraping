@@ -59,6 +59,8 @@ def map1(arr):
     url = a['href']
     urls.add(url)
   #print('a', urls)
+  time.sleep(1.0*len(proxies)) # 秒間１アクセスを担保する
+
   return url_fix(urls)
 
 urls = {'http://jin115.com/'}
